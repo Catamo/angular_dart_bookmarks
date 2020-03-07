@@ -3,12 +3,16 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../model/bookmark.dart';
+import '../../model/bookmark.dart';
 
 @Component(
-    selector: 'bm-form',
-    templateUrl: 'bm_form_component.html',
-    directives: [coreDirectives, formDirectives])
+  selector: 'bm-form',
+  templateUrl: 'bm_form_component.html',
+  directives: [
+    coreDirectives,
+    formDirectives,
+  ],
+)
 class BookmarkFormComponent implements OnInit {
   @Input()
   Bookmark bookmark;
@@ -18,6 +22,10 @@ class BookmarkFormComponent implements OnInit {
   @Output('onDelete')
   Stream get formDelete => _formDeleteCtrl.stream;
 
+  final _formUpdateCtrl = StreamController();
+  @Output('onUpdate')
+  Stream get formUpdate => _formUpdateCtrl.stream;
+
   bool submitted = false;
 
   @override
@@ -25,16 +33,17 @@ class BookmarkFormComponent implements OnInit {
     editedBookmark = Bookmark()..update(bookmark);
   }
 
-  updateBookmark(NgForm form) {
+  void updateBookmark(NgForm form) {
     submitted = true;
     if (form.valid) {
       bookmark
         ..update(editedBookmark)
         ..edit = false;
+      _formUpdateCtrl.add(null);
     }
   }
 
-  removeBookmark() {
+  void removeBookmark() {
     _formDeleteCtrl.add(null);
   }
 }

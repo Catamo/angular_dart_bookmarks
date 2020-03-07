@@ -57,9 +57,9 @@
     </div>
   </div>
   <button class="btn btn-success">
-    {{ bookmark.isFresh ? "Create" : "Update" }}
+    {{ bookmark.id == null ? "Create" : "Update" }}
   </button>
-  <button class="btn btn-warning" type="button" *ngIf="!bookmark.isFresh" (click)="bookmark.edit = false">
+  <button class="btn btn-warning" type="button" *ngIf="bookmark.id != null" (click)="bookmark.edit = false">
     Cancel
   </button>
   <button class="btn btn-danger" type="button" (click)="removeBookmark()">
