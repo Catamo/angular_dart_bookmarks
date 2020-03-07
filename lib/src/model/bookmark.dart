@@ -10,10 +10,12 @@ class Bookmark {
     description = bm.description;
     url = bm.url;
     edit = bm.edit;
+    isFresh = false;
   }
 
   String title;
   String description;
   String url;
   bool edit;
+  bool isFresh = true;
 }

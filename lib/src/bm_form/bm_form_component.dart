@@ -18,15 +18,20 @@ class BookmarkFormComponent implements OnInit {
   @Output('onDelete')
   Stream get formDelete => _formDeleteCtrl.stream;
 
+  bool submitted = false;
+
   @override
   Future<Null> ngOnInit() async {
     editedBookmark = Bookmark()..update(bookmark);
   }
 
-  updateBookmark() {
-    bookmark
-      ..update(editedBookmark)
-      ..edit = false;
+  updateBookmark(NgForm form) {
+    submitted = true;
+    if (form.valid) {
+      bookmark
+        ..update(editedBookmark)
+        ..edit = false;
+    }
   }
 
   removeBookmark() {
